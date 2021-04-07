@@ -594,7 +594,7 @@ Public Class MainWindow
     Private Shared Sub CheckModUpdatesComplete(modIds As IReadOnlyCollection(Of String))
         If modIds IsNot Nothing
             For Each modID in modIds
-                Dim modToUpdate = My.Settings.steamMods.Find(Function(m) m.WorkshopId = modID)
+                Dim modToUpdate = My.Settings.SteamModsCollection.SteamMods.Find(Function(m) m.WorkshopId = modID)
                 Dim steamCmdOutputText = Functions.StringFromRichTextBox(Instance.ISteamOutputBox)
 
                 If InStr(steamCmdOutputText, "ERROR! Timeout downloading") Then

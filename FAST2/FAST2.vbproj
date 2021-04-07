@@ -203,6 +203,7 @@
     <Compile Include="Models\Functions.vb" />
     <Compile Include="Models\LocalMod.vb" />
     <Compile Include="Models\ServerCollection.vb" />
+    <Compile Include="Models\SteamModCollection.vb" />
     <Compile Include="Models\SteamWebApi.vb" />
     <Compile Include="Models\Theme.vb" />
     <Compile Include="Settings.xaml.vb">
@@ -215,7 +216,6 @@
       <DependentUpon>Setup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Models\Encryption.vb" />
-    <Compile Include="Models\SteamMod.vb" />
     <Compile Include="SteamMods.xaml.vb">
       <DependentUpon>SteamMods.xaml</DependentUpon>
     </Compile>

@@ -40,12 +40,12 @@ Public Class LocalMods
 
         Dim localMods = LocalMod.GetLocalMods()
         Dim serverPathMods = LocalMod.GetLocalMods(True)
-        Dim steamMods = SteamMod.GetSteamMods
+        Dim steamMods = SteamModCollection.GetSteamMods
         Dim modsToRemove = New List(Of LocalMod)
 
         For Each localMod As LocalMod In serverPathMods
-            For Each steamMod As SteamMod in steamMods
-                If localMod.Name = Functions.SafeName(steamMod.Name)
+            For Each steamMod As SteamMod In steamMods.SteamMods
+                If localMod.Name = Functions.SafeName(steamMod.Name) Then
                     modsToRemove.Add(localMod)
                 End If
             Next

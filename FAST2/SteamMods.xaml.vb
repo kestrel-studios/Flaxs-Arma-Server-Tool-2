@@ -31,7 +31,7 @@ Public Class SteamMods
     End Sub
 
     Private Sub SteamMods_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        If My.Settings.steamMods.Count > 0 Then
+        If My.Settings.SteamModsCollection.SteamMods.Count > 0 Then
             UpdateModsView()
         End If
     End Sub
@@ -47,15 +47,16 @@ Public Class SteamMods
     Private Sub IImportModButton_Click(sender As Object, e As RoutedEventArgs) Handles IImportModButton.Click
         Mouse.OverrideCursor = Cursors.Wait
         IImportSteamModDialog.IsOpen = False
-        SteamMod.AddSteamMod(ISteamItemBox.Text)
+        SteamModCollection.AddSteamMod(ISteamItemBox.Text)
         IPrivateModCheck.IsChecked = False
         ISteamItemBox.Text = String.Empty
         Mouse.OverrideCursor = Cursors.Arrow
+        My.Settings.Save()
         UpdateModsView()
     End Sub
 
     Private Async Sub SteamMods_Initialized(sender As Object, e As EventArgs) Handles Me.Initialized
-        If My.Settings.steamMods.Count > 0 And My.Settings.checkForModUpdates Then
+        If My.Settings.SteamModsCollection.SteamMods.Count > 0 And My.Settings.checkForModUpdates Then
             IUpdateProgress.IsIndeterminate = True
             IModView.IsEnabled = False
             IProgressInfo.Visibility = Visibility.Visible
@@ -64,7 +65,7 @@ Public Class SteamMods
             Dim tasks As New List(Of Task) From {
                     Task.Run(
                         Sub()
-                            SteamMod.UpdateInfoFromSteam()
+                            SteamModCollection.UpdateInfoFromSteam()
                         End Sub
                         )
                     }
@@ -118,7 +119,7 @@ Public Class SteamMods
                     link = StrReverse(link)
                     link = link.Substring(link.IndexOf("epyt-atad", StringComparison.Ordinal) + 11)
                     link = StrReverse(link)
-                    SteamMod.AddSteamMod(link, True)
+                    SteamModCollection.AddSteamMod(link, True)
                 End If
             Loop
             dataReader.Close()
@@ -129,7 +130,7 @@ Public Class SteamMods
         If MainWindow.Instance.ReadyToUpdate Then
             Dim modsToUpdate = New List(Of String)
 
-            For Each steamMod In My.Settings.steamMods
+            For Each steamMod In My.Settings.SteamModsCollection.SteamMods
                 If steamMod.SteamLastUpdated > steamMod.LocalLastUpdated Then
                     modsToUpdate.Add(steamMod.WorkshopId)
 
@@ -206,7 +207,7 @@ Public Class SteamMods
     End Sub
 
     Private Async Sub CheckForUpdates()
-        If My.Settings.steamMods.Count > 0 Then
+        If My.Settings.SteamModsCollection.SteamMods.Count > 0 Then
             IUpdateProgress.IsIndeterminate = True
             IModView.IsEnabled = False
             IProgressInfo.Visibility = Visibility.Visible
@@ -215,7 +216,7 @@ Public Class SteamMods
             Dim tasks As New List(Of Task) From {
                     Task.Run(
                         Sub()
-                            SteamMod.UpdateInfoFromSteam()
+                            SteamModCollection.UpdateInfoFromSteam()
                         End Sub
                         )
                     }
@@ -236,14 +237,14 @@ Public Class SteamMods
     Private Sub UpdateModsView()
         IModView.Items.Clear()
 
-        If My.Settings.steamMods IsNot Nothing Then
+        If My.Settings.SteamModsCollection IsNot Nothing Then
 
-            For Each steamMod In My.Settings.steamMods
+            For Each steamMod In My.Settings.SteamModsCollection.SteamMods
                 IModView.Items.Add(steamMod)
             Next
         End If
 
-        ISteamModsCountLabel.Content = "Mods Count: " & My.Settings.steamMods.Count
+        ISteamModsCountLabel.Content = "Mods Count: " & My.Settings.SteamModsCollection.SteamMods.Count
     End Sub
 
     Private Sub DeleteMod(sender As Object, e As RoutedEventArgs)
@@ -257,7 +258,7 @@ Public Class SteamMods
             Directory.Delete(My.Settings.serverPath & "\@" & Functions.SafeName(steamMod.Name), True)
         End If
 
-        SteamMod.DeleteSteamMod(steamMod.WorkshopId)
+        SteamModCollection.DeleteSteamMod(steamMod.WorkshopId)
         UpdateModsView()
     End Sub
 
