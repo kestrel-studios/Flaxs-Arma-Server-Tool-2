@@ -29,28 +29,34 @@
     <Setting Name="clearSettings" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="primaryColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)">LightBlue</Value>
-    </Setting>
-    <Setting Name="accentColour" Type="System.String" Scope="User">
-      <Value Profile="(Default)">LightBlue</Value>
-    </Setting>
     <Setting Name="serverBranch" Type="System.String" Scope="User">
       <Value Profile="(Default)">Stable</Value>
     </Setting>
-    <Setting Name="steamMods" Type="System.Collections.Generic.List(Of FAST2.Models.steamMod)" Scope="User">
+    <Setting Name="steamModsCollection" Type="FAST2.Models.SteamModCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="localMods" Type="System.Collections.Generic.List(Of FAST2.Models.localMod)" Scope="User">
+    <Setting Name="localMods" Type="FAST2.Models.LocalModCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="localModFolders" Type="System.Collections.Generic.List(Of String)" Scope="User">
+    <Setting Name="localModFolders" Type="System.Collections.Specialized.StringCollection" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
     <Setting Name="excludeServerFolder" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="checkForModUpdates" Type="System.String" Scope="User">
+    <Setting Name="primaryColour" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF03A9F4</Value>
+    </Setting>
+    <Setting Name="accentColour" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#FF03A9F4</Value>
+    </Setting>
+    <Setting Name="checkForModUpdates" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="steamApiKey" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="checkForAppUpdates" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
   </Settings>

@@ -38,8 +38,8 @@ Public Class LocalMods
     Private Sub UpdateModsView()
         ILocalModsView.Items.Clear()
 
-        Dim localMods = LocalMod.GetLocalMods()
-        Dim serverPathMods = LocalMod.GetLocalMods(True)
+        Dim localMods = LocalModCollection.GetLocalMods()
+        Dim serverPathMods = LocalModCollection.GetLocalMods(True)
         Dim steamMods = SteamModCollection.GetSteamMods
         Dim modsToRemove = New List(Of LocalMod)
 

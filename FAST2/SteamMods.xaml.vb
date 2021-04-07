@@ -31,7 +31,8 @@ Public Class SteamMods
     End Sub
 
     Private Sub SteamMods_Loaded(sender As Object, e As RoutedEventArgs) Handles Me.Loaded
-        If My.Settings.SteamModsCollection.SteamMods.Count > 0 Then
+        'If My.Settings.SteamModsCollection.SteamMods.Count > 0 Then
+        If My.Settings.steamModsCollection IsNot Nothing Then
             UpdateModsView()
         End If
     End Sub
@@ -56,7 +57,8 @@ Public Class SteamMods
     End Sub
 
     Private Async Sub SteamMods_Initialized(sender As Object, e As EventArgs) Handles Me.Initialized
-        If My.Settings.SteamModsCollection.SteamMods.Count > 0 And My.Settings.checkForModUpdates Then
+        'If My.Settings.steamModsCollection.SteamMods.Count > 0 And My.Settings.checkForModUpdates Then
+        If My.Settings.steamModsCollection IsNot Nothing And My.Settings.checkForModUpdates Then
             IUpdateProgress.IsIndeterminate = True
             IModView.IsEnabled = False
             IProgressInfo.Visibility = Visibility.Visible
@@ -146,7 +148,7 @@ Public Class SteamMods
                 Next
 
                 Dim steamCmd As String = MainWindow.Instance.ISteamDirBox.Text + "\steamcmd.exe"
-                steamCommand = steamCommand & " validate +quit"
+                steamCommand &= " validate +quit"
                 MainWindow.Instance.RunSteamCommand(steamCmd, steamCommand, "addon", modsToUpdate)
             Else
                 MainWindow.Instance.IMessageDialog.IsOpen = True

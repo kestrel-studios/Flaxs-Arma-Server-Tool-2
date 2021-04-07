@@ -1,23 +1,14 @@
 ﻿Imports System.IO
+Imports System.Xml.Serialization
 
 Namespace Models
     <Serializable()>
-    Public Class LocalMod
-        Private Sub New()
-        End Sub
+    Public Class LocalModCollection
+        <XmlElement(Order:=1)>
+        Public Property CollectionName As String = "AppLocalMods"
 
-        Public Sub New(name As String, path As String, Optional author As String = "Unknown", Optional website As String = Nothing)
-            Me.Name = name
-            Me.Path = path
-            Me.Author = author
-            Me.Website = website
-        End Sub
-        
-        Public Property Name As String = String.Empty
-        Public Property Path As String = String.Empty
-        Public Property Author As String = String.Empty
-        Public Property Website As String = String.Empty
-
+        <XmlElement(Order:=2, ElementName:="LocalMod")>
+        Public LocalMods As List(Of LocalMod) = New List(Of LocalMod)()
         Public Shared Function GetLocalMods(Optional serverPathOnly As Boolean = False) As List(Of LocalMod)
             Dim localMods = New List(Of LocalMod)
 
@@ -28,15 +19,15 @@ Namespace Models
                     foldersToSearch.Add(My.Settings.serverPath)
                 End If
             End If
-            
+
             If Not serverPathOnly Then
                 For Each folder In My.Settings.localModFolders
-                    If folder IsNot Nothing
+                    If folder IsNot Nothing Then
                         foldersToSearch.Add(folder)
                     End If
                 Next
             End If
-        
+
             If foldersToSearch.Count > 0 Then
                 For Each localModFolder In foldersToSearch
                     Try
@@ -51,6 +42,23 @@ Namespace Models
 
             Return localMods
         End Function
-
     End Class
-End NameSpace
+
+    <Serializable()>
+    Public Class LocalMod
+        Private Sub New()
+        End Sub
+
+        Public Sub New(name As String, path As String, Optional author As String = "Unknown", Optional website As String = Nothing)
+            Me.Name = name
+            Me.Path = path
+            Me.Author = author
+            Me.Website = website
+        End Sub
+
+        Public Property Name As String = String.Empty
+        Public Property Path As String = String.Empty
+        Public Property Author As String = String.Empty
+        Public Property Website As String = String.Empty
+    End Class
+End Namespace

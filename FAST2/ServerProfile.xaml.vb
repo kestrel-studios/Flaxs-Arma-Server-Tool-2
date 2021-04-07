@@ -176,7 +176,7 @@ Class ServerProfile
 
         ElseIf IDuplicateProfile.IsSelected Then
             UpdateProfile()
-            ShowDuplicateInterface(True)
+            ShowDuplicateInterface()
 
         ElseIf IDeleteProfile.IsSelected Then
             ServerCollection.DeleteServerProfile(_safeName)
@@ -484,7 +484,7 @@ Class ServerProfile
         End If
     End Sub
 
-    Private Sub ShowDuplicateInterface(show As Boolean)
+    Private Sub ShowDuplicateInterface()
         IDuplicateServerProfileDialog.IsOpen = True
     End Sub
 
@@ -563,15 +563,15 @@ Class ServerProfile
 
 
             If IEnableHyperThreading.IsChecked Then
-                commandLine = commandLine & " -enableHT"
+                commandLine &= " -enableHT"
             End If
 
             If IFilePatching.IsChecked Then
-                commandLine = commandLine & " -filePatching"
+                commandLine &= " -filePatching"
             End If
 
             If INetlog.IsChecked Then
-                commandLine = commandLine & " -netlog"
+                commandLine &= " -netlog"
             End If
 
             If IRankingEnabled.IsChecked Then
@@ -583,7 +583,7 @@ Class ServerProfile
             End If
 
             If IAutoInit.IsChecked Then
-                commandLine = commandLine & " -autoInit"
+                commandLine &= " -autoInit"
             End If
 
             If IMaxMem.Text IsNot String.Empty Then
